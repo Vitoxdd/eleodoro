@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Sobrevivência Digital: Links Suspeitos</title>
+    <!-- Tailwind CSS para estilização rápida e moderna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons para ícones modernos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glow-red {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
+        .glow-green {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-red-500 selection:text-white">
+
+    <!-- Header / Hero Section -->
+    <header class="relative overflow-hidden border-b border-slate-800 bg-slate-900/50 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.08),transparent_50%)]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 mb-6">
+                <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Cuidado Digital
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-red-400 bg-clip-text text-transparent mb-6">
+                Como Identificar Links Suspeitos e Proteger seus Dados
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Na internet, um único clique errado pode expor suas informações pessoais. Aprenda a ler os elementos ocultos nos endereços web e evite armadilhas de Phishing.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-16">
+
+        <!-- Seção 1: Anatomia de um Link de Risco -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-red-500/10 text-red-400 rounded-lg border border-red-500/20">
+                    <i data-lucide="binary" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Anatomia de um Link de Risco</h2>
+            </div>
+            <p class="text-slate-400">
+                Os criminosos costumam criar links parecidos com os originais para enganar as vítimas. Passe o mouse ou toque nos blocos abaixo para inspecionar os elementos perigosos:
+            </p>
+
+            <!-- Simulador Interativo de URL -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4 block">Simulador de Link Falso (Exemplo Educativo)</span>
+                
+                <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4 bg-slate-950 p-4 rounded-xl border border-red-500/30 glow-red">
+                    <div class="text-red-400 font-mono text-sm break-all select-all flex-1">
+                        <span class="text-red-500 font-bold bg-red-500/10 px-1 rounded">http</span>://<span class="text-orange-400 font-bold underline bg-orange-400/10 px-1 rounded">login-suporte-netflix</span>.<span class="text-yellow-400 font-bold bg-yellow-400/10 px-1 rounded">seguranca-verify.net</span>/entrar
+                    </div>
+                    <div class="flex gap-2 shrink-0">
+                        <button onclick="explicarElemento('protocolo')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg transition border border-slate-700 text-slate-300">Inspecionar Protocolo</button>
+                        <button onclick="explicarElemento('subdominio')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg transition border border-slate-700 text-slate-300">Inspecionar Subdomínio</button>
+                    </div>
+                </div>
+
+                <!-- Painel de Detalhes Dinâmico -->
+                <div id="painel-explicativo" class="mt-6 bg-slate-950/50 rounded-xl p-5 border border-slate-800 min-h-[100px] flex items-center justify-center">
+                    <p class="text-slate-500 text-sm text-center italic" id="texto-explicativo">
+                        Clique em um dos botões acima ou explore as seções abaixo para entender as armadilhas comuns em URLs de phishing.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Os 2 Principais Sinais de Alerta -->
+        <section class="space-y-8">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-red-500/10 text-red-400 rounded-lg border border-red-500/20">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-2xl font-bold">2 Sinais de Alerta Cruciais</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Alerta 1 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-red-500/30 transition duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/5 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="text-red-400 font-bold text-5xl mb-4 opacity-50">01</div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-100 flex items-center gap-2">
+                        Erros Ortográficos e Domínios Disfarçados (Typosquatting)
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Golpistas costumam registrar nomes muito parecidos com marcas famosas para que você não note a diferença em uma leitura rápida. Eles trocam letras, adicionam traços ou usam extensões de domínio incomuns.
+                    </p>
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs font-mono">
+                        <span class="text-emerald-400 font-semibold block">✓ Correto: google.com</span>
+                        <span class="text-red-400 font-semibold block mt-1">✗ Suspeito: g00gle-login-seguro.xyz</span>
+                    </div>
+                </div>
+
+                <!-- Alerta 2 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-red-500/30 transition duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/5 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="text-red-400 font-bold text-5xl mb-4 opacity-50">02</div>
+                    <h3 class="text-xl font-bold mb-3 text-slate-100 flex items-center gap-2">
+                        Ausência de HTTPS ou Avisos do Navegador
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Sites legítimos modernos que coletam senhas ou dados usam obrigatoriamente conexões seguras (<code class="bg-slate-800 px-1 py-0.5 rounded text-red-300 text-xs">https://</code>). Embora hoje muitos golpistas também tenham certificados SSL, a ausência dele (<code class="bg-slate-800 px-1 py-0.5 rounded text-red-300 text-xs">http://</code>) em páginas de login é um alerta grave.
+                    </p>
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs font-mono">
+                        <span class="text-emerald-400 font-semibold block flex items-center gap-1">
+                            <i data-lucide="lock" class="w-3..5 h-3.5"></i> https:// (Criptografado)
+                        </span>
+                        <span class="text-red-400 font-semibold block mt-1 flex items-center gap-1">
+                            <i data-lucide="unlock" class="w-3.5 h-3.5"></i> http:// (Não Seguro - Evite dados sensíveis!)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Identificando Elementos de Risco (Checklist Interativo) -->
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg border border-emerald-500/20">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold">Checklist Antifraude</h2>
+                    <p class="text-xs text-slate-400 mt-1">Sempre faça essas perguntas antes de clicar em um link desconhecido</p>
+                </div>
+            </div>
+
+            <div class="grid gap-4">
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition">
+                    <input type="checkbox" id="check-1" class="mt-1 rounded bg-slate-900 border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-955 w-5 h-5">
+                    <label for="check-1" class="cursor-pointer">
+                        <span class="font-semibold block text-slate-200">Verifiquei o domínio principal?</span>
+                        <span class="text-sm text-slate-400 block mt-0.5">O nome principal do site (antes do primeiro ponto e barra) é exatamente o oficial da marca?</span>
+                    </label>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition">
+                    <input type="checkbox" id="check-2" class="mt-1 rounded bg-slate-900 border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-955 w-5 h-5">
+                    <label for="check-2" class="cursor-pointer">
+                        <span class="font-semibold block text-slate-200">A oferta é milagrosa ou urgente?</span>
+                        <span class="text-sm text-slate-400 block mt-0.5">Frases como "Sua conta será bloqueada hoje" ou "Você ganhou um prêmio grátis" são táticas clássicas de engenharia social.</span>
+                    </label>
+                </div>
+
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition">
+                    <input type="checkbox" id="check-3" class="mt-1 rounded bg-slate-900 border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-955 w-5 h-5">
+                    <label for="check-3" class="cursor-pointer">
+                        <span class="font-semibold block text-slate-200">Usei um testador de link seguro?</span>
+                        <span class="text-sm text-slate-400 block mt-0.5">Em caso de dúvida extrema, copiei o link e verifiquei em serviços de reputação como o VirusTotal ou Google Safe Browsing.</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 4: Quiz Rápido -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-yellow-500/10 text-yellow-400 rounded-lg border border-yellow-500/20">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Teste sua Percepção</h2>
+            </div>
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 text-center space-y-6">
+                <h3 class="text-lg font-semibold">Qual destes links abaixo é VERDADEIRAMENTE seguro para acessar o suporte do banco fictício "BankAlpha"?</h3>
+                
+                <div class="grid gap-3 max-w-md mx-auto">
+                    <button onclick="responderQuiz(false, this)" class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800/50 transition font-mono text-sm text-slate-300">
+                        http://bankalpha-suporte.com
+                    </button>
+                    <button onclick="responderQuiz(false, this)" class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800/50 transition font-mono text-sm text-slate-300">
+                        https://suporte-bankalpha.atendimento.net
+                    </button>
+                    <button onclick="responderQuiz(true, this)" class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 hover:bg-slate-800/50 transition font-mono text-sm text-slate-300">
+                        https://suporte.bankalpha.com/login
+                    </button>
+                </div>
+
+                <!-- Resposta do quiz -->
+                <div id="quiz-feedback" class="hidden text-sm font-semibold p-4 rounded-xl max-w-md mx-auto"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-slate-950 py-8 text-center text-xs text-slate-500">
+        <p>© 2026 Guia de Sobrevivência Digital. Desenvolvido para fins educativos.</p>
+    </footer>
+
+    <!-- Scripts de Interatividade -->
+    <script>
+        // Inicializar ícones do Lucide
+        lucide.createIcons();
+
+        // Lógica do Simulador de Link
+        function explicarElemento(tipo) {
+            const painel = document.getElementById('painel-explicativo');
+            const texto = document.getElementById('texto-explicativo');
+            
+            // Resetar classes
+            painel.className = "mt-6 rounded-xl p-5 border min-h-[100px] flex flex-col justify-center text-left transition duration-300 ";
+
+            if (tipo === 'protocolo') {
+                painel.classList.add('bg-red-500/10', 'border-red-500/30');
+                texto.innerHTML = `
+                    <div class="flex gap-2 items-start">
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-red-400 block mb-1">Ausência de HTTPS (http://)</strong>
+                            <span class="text-slate-300 text-sm">O link usa "http" em vez do "https". Sem criptografia, qualquer dado enviado pode ser interceptado. É uma falha imperdoável para portais de pagamento ou logins hoje em dia.</span>
+                        </div>
+                    </div>
+                `;
+            } else if (tipo === 'subdominio') {
+                painel.classList.add('bg-orange-500/10', 'border-orange-500/30');
+                texto.innerHTML = `
+                    <div class="flex gap-2 items-start">
+                        <i data-lucide="info" class="w-5 h-5 text-orange-400 shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-orange-400 block mb-1">Subdomínio Enganador</strong>
+                            <span class="text-slate-300 text-sm">O nome da marca famosa ("login-suporte-netflix") está posicionado como subdomínio de um domínio completamente desconhecido ("seguranca-verify.net"). O dono deste site é o dono do domínio final, não da marca citada!</span>
+                        </div>
+                    </div>
+                `;
+            }
+            // Recriar ícones dinâmicos inseridos via JavaScript
+            lucide.createIcons();
+        }
+
+        // Lógica do Quiz
+        function responderQuiz(isCorrect, elemento) {
+            const feedback = document.getElementById('quiz-feedback');
+            
+            // Desabilitar botões após responder
+            const botoes = elemento.parentNode.querySelectorAll('button');
+            botoes.forEach(btn => btn.disabled = true);
+
+            feedback.classList.remove('hidden');
+
+            if (isCorrect) {
+                elemento.classList.add('border-emerald-500/50', 'bg-emerald-500/10', 'text-emerald-400');
+                feedback.className = "text-sm font-semibold p-4 rounded-xl max-w-md mx-auto bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
+                feedback.innerHTML = "✓ Correto! O domínio principal é 'bankalpha.com' e o prefixo 'suporte' é um subdomínio oficial do mesmo domínio. Além disso, utiliza o protocolo HTTPS seguro.";
+            } else {
+                elemento.classList.add('border-red-500/50', 'bg-red-500/10', 'text-red-400');
+                feedback.className = "text-sm font-semibold p-4 rounded-xl max-w-md mx-auto bg-red-500/10 border border-red-500/20 text-red-400";
+                feedback.innerHTML = "✗ Errado! Este link possui armadilhas. Ou usa o protocolo não seguro (http) ou aponta para domínios externos que não pertencem ao domínio principal oficial da marca.";
+            }
+        }
+    </script>
+</body>
+</html>
