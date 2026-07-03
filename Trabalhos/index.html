@@ -27,9 +27,18 @@
     <header class="relative overflow-hidden border-b border-slate-800 bg-slate-900/50 py-16 px-4 sm:px-6 lg:px-8">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(239,68,68,0.08),transparent_50%)]"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20 mb-6">
-                <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Cuidado Digital
-            </span>
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Cuidado Digital
+                </span>
+                
+                <!-- Botão de Leitura em Voz Alta -->
+                <button id="btn-audio" onclick="toggleLeitura()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 active:scale-95 transition cursor-pointer">
+                    <i data-lucide="volume-2" id="audio-icon" class="w-3.5 h-3.5"></i> 
+                    <span id="audio-text">Ouvir Guia</span>
+                </button>
+            </div>
+            
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-red-400 bg-clip-text text-transparent mb-6">
                 Como Identificar Links Suspeitos e Proteger seus Dados
             </h1>
@@ -114,7 +123,7 @@
                     </p>
                     <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs font-mono">
                         <span class="text-emerald-400 font-semibold block flex items-center gap-1">
-                            <i data-lucide="lock" class="w-3..5 h-3.5"></i> https:// (Criptografado)
+                            <i data-lucide="lock" class="w-3.5 h-3.5"></i> https:// (Criptografado)
                         </span>
                         <span class="text-red-400 font-semibold block mt-1 flex items-center gap-1">
                             <i data-lucide="unlock" class="w-3.5 h-3.5"></i> http:// (Não Seguro - Evite dados sensíveis!)
@@ -203,6 +212,65 @@
     <script>
         // Inicializar ícones do Lucide
         lucide.createIcons();
+
+        // Variáveis globais para controle do áudio/leitura
+        let ttsUtterance = null;
+        let isSpeaking = false;
+
+        // Função de controle da Leitura em Voz Alta
+        function toggleLeitura() {
+            const btnText = document.getElementById('audio-text');
+            const btnIcon = document.getElementById('audio-icon');
+
+            if (!('speechSynthesis' in window)) {
+                btnText.innerText = "Audio indisponível";
+                return;
+            }
+
+            if (isSpeaking) {
+                // Para a leitura atual
+                window.speechSynthesis.cancel();
+                isSpeaking = false;
+                btnText.innerText = "Ouvir Guia";
+                btnIcon.setAttribute('data-lucide', 'volume-2');
+                lucide.createIcons();
+            } else {
+                // Compila os principais textos educativos do guia para leitura contínua e limpa
+                const txtTitulo = "Como Identificar Links Suspeitos e Proteger seus Dados.";
+                const txtIntro = "Na internet, um único clique errado pode expor suas informações pessoais. Aprenda a ler os elementos ocultos nos endereços web e evite armadilhas de Phishing.";
+                const txtSinal1 = "Sinal de alerta número um. Erros Ortográficos e Domínios Disfarçados. Golpistas costumam registrar nomes muito parecidos com marcas famosas para que você não note a diferença em uma leitura rápida. Eles trocam letras ou usam extensões incomuns.";
+                const txtSinal2 = "Sinal de alerta número dois. Ausência de HTTPS ou Avisos do Navegador. Sites legítimos modernos que coletam senhas ou dados usam conexões seguras. A ausência de HTTPS em páginas de login é um alerta grave.";
+                const txtChecklist = "Lembre-se sempre do checklist antifraude: Verifique o domínio principal, desconfie de ofertas urgentes e use um testador de links seguro.";
+
+                const textoCompleto = `${txtTitulo} ${txtIntro} ${txtSinal1} ${txtSinal2} ${txtChecklist}`;
+
+                ttsUtterance = new SpeechSynthesisUtterance(textoCompleto);
+                ttsUtterance.lang = 'pt-BR';
+                ttsUtterance.rate = 1.0; // Velocidade natural
+
+                // Eventos de finalização ou erro
+                ttsUtterance.onend = function() {
+                    isSpeaking = false;
+                    btnText.innerText = "Ouvir Guia";
+                    btnIcon.setAttribute('data-lucide', 'volume-2');
+                    lucide.createIcons();
+                };
+
+                ttsUtterance.onerror = function() {
+                    isSpeaking = false;
+                    btnText.innerText = "Ouvir Guia";
+                    btnIcon.setAttribute('data-lucide', 'volume-2');
+                    lucide.createIcons();
+                };
+
+                // Iniciar a reprodução de áudio
+                window.speechSynthesis.speak(ttsUtterance);
+                isSpeaking = true;
+                btnText.innerText = "Parar Leitura";
+                btnIcon.setAttribute('data-lucide', 'square'); // Troca o ícone para parar
+                lucide.createIcons();
+            }
+        }
 
         // Lógica do Simulador de Link
         function explicarElemento(tipo) {
