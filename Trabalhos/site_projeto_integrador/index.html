@@ -1,91 +1,641 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título do Seu Trabalho</title>
+    <title>Visão Humana & O Carrinho Segue Seta</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            900: '#0c4a6e',
+                            accent: '#06b6d4',
+                            dark: '#0f172a',
+                            card: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Estilos básicos para organizar o site */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.3);
+        }
+        
+        .pulse-light {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
-        header {
-            background-color: #0056b3;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-        }
-
-        main {
-            background: white;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        section {
-            margin-bottom: 20px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            display: block;
-            margin: 10px 0;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #666;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
 
-    <header>
-        <h1>Título do Trabalho Escolar</h1>
-        <p>Nome do Aluno | Turma | Matéria</p>
+    <!-- BARRA DE NAVEGAÇÃO -->
+    <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg text-cyan-400">
+                    <i data-lucide="eye" class="w-6 h-6"></i>
+                </div>
+                <span class="font-bold text-lg tracking-wide text-white">OptoRobótica <span class="text-cyan-400 font-normal">| Visão & Bionática</span></span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                <a href="#introducao" class="hover:text-cyan-400 transition-colors">Conceito</a>
+                <a href="#comparativo" class="hover:text-cyan-400 transition-colors">Analogia da Visão</a>
+                <a href="#simulador" class="hover:text-cyan-400 transition-colors">Simulador Interativo</a>
+                <a href="#galeria" class="hover:text-cyan-400 transition-colors">Mídia & Vídeos</a>
+                <a href="#tecnologia-assistiva" class="hover:text-cyan-400 transition-colors">Tecnologia Assistiva</a>
+            </nav>
+
+            <button onclick="scrollToSim()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+                <i data-lucide="play" class="w-4 h-4"></i> Testar Simulador
+            </button>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>Introdução</h2>
-            <p>Escreva aqui a introdução do seu trabalho...</p>
-        </section>
+    <!-- SEÇÃO HERO -->
+    <section class="relative py-20 overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Robótica Educacional & Assistiva
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
+                        O Carrinho Segue-Seta e a <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Visão Humana</span>
+                    </h1>
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                        Entenda como sensores robóticos replicam o processamento visual humano, como falhas de calibração simulam problemas de visão e como essa tecnologia revoluciona a mobilidade assistiva para deficientes visuais.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#simulador" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-6 py-3 rounded-lg transition-all flex items-center gap-2">
+                            <i data-lucide="cpu" class="w-5 h-5"></i> Abrir Simulador
+                        </a>
+                        <a href="#comparativo" class="border border-slate-700 hover:border-slate-500 text-slate-300 font-medium px-6 py-3 rounded-lg transition-all flex items-center gap-2">
+                            <i data-lucide="arrow-down" class="w-5 h-5"></i> Explorar Comparações
+                        </a>
+                    </div>
+                </div>
 
-        <section>
-            <h2>Desenvolvimento</h2>
-            <p>Escreva aqui o conteúdo principal do seu trabalho...</p>
-            
-            <img src="imagem.jpg" alt="Descrição da imagem">
-        </section>
+                <!-- PLACEHOLDER DE IMAGEM DE CAPA -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+                    <div class="relative bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl p-2">
+                        <!-- ESPAÇO RESERVADO PARA IMAGEM PRINCIPAL -->
+                        <div class="w-full h-80 bg-slate-800/80 rounded-xl flex flex-col items-center justify-center text-slate-400 border border-dashed border-slate-700 relative overflow-hidden group-hover:border-cyan-500/50 transition-colors">
+                            <!--  -->
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" alt="Robô com sensores em laboratório" class="absolute inset-0 w-full h-full object-cover opacity-40 hover:opacity-60 transition-opacity">
+                            <div class="relative z-10 text-center p-6 bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-800">
+                                <i data-lucide="image" class="w-10 h-10 text-cyan-400 mx-auto mb-2"></i>
+                                <span class="font-semibold text-white block">Área para Foto / Diagrama Principal</span>
+                                <span class="text-xs text-slate-400">Sugestão: Robô Segue-Trilha / Sensor Infravermelho</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section>
-            <h2>Conclusão</h2>
-            <p>Escreva aqui a sua conclusão...</p>
-        </section>
-    </main>
+    <!-- INTRODUÇÃO & CONCEITO -->
+    <section id="introducao" class="py-16 bg-slate-950 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Como Funciona a "Visão" do Robô?</h2>
+                <p class="text-slate-400">
+                    O carrinho seguidor de linha/seta utiliza pares de **sensores ópticos infravermelhos (LED Emissor + Fototransistor)** para mapear o contraste do solo em tempo real.
+                </p>
+            </div>
 
-    <footer>
-        <p>Trabalho escolar - 2026</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="sun" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">1. Emissão de Luz</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        O LED infravermelho projeta uma luz invisível contra o solo. É o equivalente ao reflexo da luz ambiente que entra na retina do olho humano.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="contrast" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">2. Detecção de Contraste</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Superfícies claras refletem muita luz; superfícies escuras absorvem. O fototransistor converte essa reflexão em um nível de voltagem elétrica.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-cyan-500/30 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">3. Processamento e Ação</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        O microcontrolador (ex: Arduino) recebe os dados, calcula a diferença entre a esquerda e a direita e ajusta os motores para corrigir a trajetória.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANALOGIA ENTRE PROBLEMAS DE VISÃO E ROBÓTICA -->
+    <section id="comparativo" class="py-16 bg-slate-900 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Problemas de Visão Humana vs. Falhas no Robô</h2>
+                <p class="text-slate-400">
+                    O comportamento do carrinho muda drasticamente quando seus sensores ou calibrações falham — um paralelo perfeito com as deficiências visuais humanas.
+                </p>
+            </div>
+
+            <!-- TABELA COMPARATIVA INTERATIVA -->
+            <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-xl mb-12">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-slate-900/80 border-b border-slate-800 text-cyan-400">
+                                <th class="p-4 font-semibold">Condição Ocular Humana</th>
+                                <th class="p-4 font-semibold">Análogo Técnico no Robô</th>
+                                <th class="p-4 font-semibold">Impacto Prático no Comportamento</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr class="hover:bg-slate-900/40 transition-colors">
+                                <td class="p-4 font-semibold text-white flex items-center gap-2">
+                                    <i data-lucide="eye-off" class="w-4 h-4 text-amber-400"></i> Catarata / Opacificação
+                                </td>
+                                <td class="p-4 text-slate-400">Sensores sujos ou emissão IR fraca (perda de sensibilidade).</td>
+                                <td class="p-4">O robô perde a capacidade de distinguir preto e branco, saindo da curva.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40 transition-colors">
+                                <td class="p-4 font-semibold text-white flex items-center gap-2">
+                                    <i data-lucide="disc" class="w-4 h-4 text-cyan-400"></i> Glaucoma (Visão de Túnel)
+                                </td>
+                                <td class="p-4 text-slate-400">Sensores posicionados muito juntos no centro do robô.</td>
+                                <td class="p-4">Perde a capacidade de detectar curvas acentuadas antes de perder a linha.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40 transition-colors">
+                                <td class="p-4 font-semibold text-white flex items-center gap-2">
+                                    <i data-lucide="target" class="w-4 h-4 text-rose-400"></i> Degeneração Macular (DMRI)
+                                </td>
+                                <td class="p-4 text-slate-400">Sensor central queimado ou desconectado.</td>
+                                <td class="p-4">O robô hesita em linha reta, fazendo ziguezague constante (oscilação).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40 transition-colors">
+                                <td class="p-4 font-semibold text-white flex items-center gap-2">
+                                    <i data-lucide="sun-medium" class="w-4 h-4 text-yellow-400"></i> Fotofobia / Claridade Excessiva
+                                </td>
+                                <td class="p-4 text-slate-400">Ruído por luz externa (sol direto no fototransistor).</td>
+                                <td class="p-4">Sinais falsos; o robô enxerga "linhas fantasmas" e para aleatoriamente.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIMULADOR INTERATIVO JS -->
+    <section id="simulador" class="py-16 bg-slate-950 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Laboratório Virtual
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-4">Simulador: Teste as Deficiências Visuais</h2>
+                <p class="text-slate-400">
+                    Altere os parâmetros do robô abaixo e observe em tempo real como o ajuste de visão afeta seu desempenho na pista.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- PAINEL DE CONTROLES -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl space-y-6">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+                        <i data-lucide="sliders" class="w-5 h-5 text-cyan-400"></i> Ajustes de Visão do Robô
+                    </h3>
+
+                    <!-- Modo Preset -->
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Simular Condição:</label>
+                        <select id="presetSelect" onchange="applyPreset()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500">
+                            <option value="normal">Visão Normal (Calibrado)</option>
+                            <option value="catarata">Catarata (Baixo Contraste)</option>
+                            <option value="tunel">Visão de Túnel (Sensores Próximos)</option>
+                            <option value="dmri">Perda Central (Sensor Danificado)</option>
+                        </select>
+                    </div>
+
+                    <!-- Slider Contraste -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-400">Sensibilidade ao Contraste</span>
+                            <span id="valContrast" class="text-cyan-400 font-bold">100%</span>
+                        </div>
+                        <input type="range" id="inputContrast" min="20" max="100" value="100" oninput="updateSimParams()" class="w-full accent-cyan-500">
+                    </div>
+
+                    <!-- Slider Distância dos Sensores -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-400">Espaçamento dos Sensores (Campo)</span>
+                            <span id="valSpacing" class="text-cyan-400 font-bold">Largo</span>
+                        </div>
+                        <input type="range" id="inputSpacing" min="10" max="40" value="30" oninput="updateSimParams()" class="w-full accent-cyan-500">
+                    </div>
+
+                    <!-- Botoes de Ação -->
+                    <div class="pt-4 flex gap-3">
+                        <button id="btnStart" onclick="toggleSimulation()" class="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="play" class="w-4 h-4"></i> Iniciar
+                        </button>
+                        <button onclick="resetSimulation()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-4 py-2.5 rounded-lg text-sm transition-all">
+                            Reiniciar
+                        </button>
+                    </div>
+
+                    <!-- Diagnóstico -->
+                    <div class="p-4 bg-slate-950 rounded-lg border border-slate-800">
+                        <span class="text-xs font-semibold text-slate-500 block mb-1">Status da Trajetória:</span>
+                        <p id="statusDiag" class="text-xs text-cyan-400 font-mono">Pronto para rodar.</p>
+                    </div>
+                </div>
+
+                <!-- CANVAS DA PISTA DO ROBÔ -->
+                <div class="lg:col-span-2 bg-slate-900 border border-slate-800 p-4 rounded-xl relative flex flex-col items-center justify-center">
+                    <canvas id="simCanvas" width="600" height="400" class="w-full h-auto bg-slate-950 rounded-lg border border-slate-800 cursor-crosshair"></canvas>
+                    <div class="w-full flex justify-between items-center text-xs text-slate-500 mt-3 px-2">
+                        <span>Pista: Oval de Testes com Linha Preta</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-cyan-400 inline-block animate-ping"></span> Simulação Ativa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA DE MÍDIA / VÍDEOS E IMAGENS -->
+    <section id="galeria" class="py-16 bg-slate-900 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Galeria Multimídia do Projeto</h2>
+                <p class="text-slate-400">
+                    Insira abaixo os registros fotográficos do circuito, testes práticos e demonstrativos em vídeo do robô em ação.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- CONTAINER VÍDEO 1 -->
+                <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-lg group">
+                    <div class="relative w-full h-48 bg-slate-900 flex items-center justify-center overflow-hidden border-b border-slate-800">
+                        <!-- ESPAÇO RESERVADO PARA VÍDEO -->
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-cyan-500/20 text-cyan-400 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                                <i data-lucide="video" class="w-6 h-6"></i>
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono block mb-1">[Espaço para Vídeo MP4 / Embed YouTube]</span>
+                            <span class="text-sm font-semibold text-white">Demonstração na Pista</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-base font-bold text-white mb-1">Teste de Calibração</h4>
+                        <p class="text-xs text-slate-400">Vídeo mostrando a diferença do carrinho ajustado vs. descalibrado.</p>
+                    </div>
+                </div>
+
+                <!-- CONTAINER IMAGEM 1 -->
+                <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-lg group">
+                    <div class="relative w-full h-48 bg-slate-900 flex items-center justify-center overflow-hidden border-b border-slate-800">
+                        <!--  -->
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Circuito Eletrônico" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-500">
+                        <div class="relative z-10 text-center p-2 bg-slate-950/80 backdrop-blur-sm rounded-lg border border-slate-800">
+                            <i data-lucide="camera" class="w-5 h-5 text-cyan-400 mx-auto mb-1"></i>
+                            <span class="text-xs text-slate-300 font-semibold block">Foto do Sensor IR</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-base font-bold text-white mb-1">Módulo Sensor TCRT5000</h4>
+                        <p class="text-xs text-slate-400">Detalhamento óptico dos leds emissores e receptores.</p>
+                    </div>
+                </div>
+
+                <!-- CONTAINER IMAGEM 2 / VÍDEO INTERATIVO -->
+                <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-lg group">
+                    <div class="relative w-full h-48 bg-slate-900 flex items-center justify-center overflow-hidden border-b border-slate-800">
+                        <!--  -->
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" alt="Tecnologia Assistiva" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-500">
+                        <div class="relative z-10 text-center p-2 bg-slate-950/80 backdrop-blur-sm rounded-lg border border-slate-800">
+                            <i data-lucide="play-circle" class="w-5 h-5 text-cyan-400 mx-auto mb-1"></i>
+                            <span class="text-xs text-slate-300 font-semibold block">Vídeo / Foto Assistiva</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="text-base font-bold text-white mb-1">Aplicação Real</h4>
+                        <p class="text-xs text-slate-400">Protótipo de cadeira autônoma guiada por fitas UV/IR.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGIA ASSISTIVA & IMPACTO SOCIAL -->
+    <section id="tecnologia-assistiva" class="py-16 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                    Impacto Social
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-4">Como Essa Tecnologia Ajuda Pessoas?</h2>
+                <p class="text-slate-400">
+                    O princípio simples do seguidor de seta é a base para inovações transformadoras em mobilidade urbana e autonomia para deficientes visuais.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-cyan-500/40 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="navigation" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Bengala Eletrônica Guiada</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Bengalas modernas usam sensores ópticos para ler faixas de piso tátil ou linhas infravermelhas em estações de metrô, emitindo vibrações para orientar o caminhante.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-cyan-500/40 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="accessibility" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cadeiras de Rodas Autônomas</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Em hospitais e aeroportos, cadeiras inteligentes seguem trajetórias demarcadas no chão com luz invisível, levando pacientes cegos até seus destinos de forma segura.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-cyan-500/40 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="bot" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Robôs Guia em Ambientes Fechados</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Substitutos e complementos para cães-guia em locais de alta complexidade, utilizando algoritmos ópticos avançados de prevenção de colisões.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 text-slate-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <i data-lucide="eye" class="w-5 h-5 text-cyan-400"></i>
+                <span class="text-slate-300 font-semibold">Projeto Visão & Robótica Assistiva</span>
+            </div>
+            <p>© 2026 - Desenvolvido para Feiras de Ciências e Projetos Acadêmicos.</p>
+        </div>
     </footer>
 
+    <!-- LOGICA JAVASCRIPT DO SIMULADOR E INTERATIVIDADES -->
     <script>
-        // Linguagem de script usada em sites (JavaScript)
-        // Você pode colocar interações aqui no futuro se precisar!
-        console.log("Site do trabalho carregado com sucesso!");
-    </script>
+        // Inicializa Ícones
+        lucide.createIcons();
 
+        function scrollToSim() {
+            document.getElementById('simulador').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- LÓGICA DO SIMULADOR CANVAS ---
+        const canvas = document.getElementById('simulador') ? document.getElementById('simCanvas') : null;
+        const ctx = canvas ? canvas.getContext('2d') : null;
+
+        let simRunning = false;
+        let animFrameId = null;
+
+        // Estado do Robô
+        let robot = {
+            x: 100,
+            y: 200,
+            angle: 0,
+            speed: 1.8,
+            sensorSpacing: 30, // distância entre sensores em px
+            contrastSense: 1.0, // 0.2 a 1.0
+            sensorMode: 'normal'
+        };
+
+        // Função de Atualização de Parâmetros
+        function updateSimParams() {
+            const contrast = document.getElementById('inputContrast').value;
+            const spacing = document.getElementById('inputSpacing').value;
+
+            document.getElementById('valContrast').innerText = contrast + '%';
+            robot.contrastSense = contrast / 100;
+
+            robot.sensorSpacing = parseInt(spacing);
+            if(robot.sensorSpacing < 18) {
+                document.getElementById('valSpacing').innerText = 'Estreito (Túnel)';
+            } else if(robot.sensorSpacing > 32) {
+                document.getElementById('valSpacing').innerText = 'Amplo (Normal)';
+            } else {
+                document.getElementById('valSpacing').innerText = 'Médio';
+            }
+        }
+
+        function applyPreset() {
+            const preset = document.getElementById('presetSelect').value;
+            const inputC = document.getElementById('inputContrast');
+            const inputS = document.getElementById('inputSpacing');
+
+            robot.sensorMode = preset;
+
+            if (preset === 'normal') {
+                inputC.value = 100;
+                inputS.value = 30;
+                document.getElementById('statusDiag').innerText = 'Visão ideal. Pista seguida sem oscilação.';
+            } else if (preset === 'catarata') {
+                inputC.value = 30;
+                inputS.value = 30;
+                document.getElementById('statusDiag').innerText = 'Alerta: Baixa detecção de contraste. Risco de sair em curvas.';
+            } else if (preset === 'tunel') {
+                inputC.value = 100;
+                inputS.value = 12;
+                document.getElementById('statusDiag').innerText = 'Alerta: Campo visual reduzido. Falha ao detectar curvas abruptas.';
+            } else if (preset === 'dmri') {
+                inputC.value = 80;
+                inputS.value = 35;
+                document.getElementById('statusDiag').innerText = 'Alerta: Ponto cego central. Causando instabilidade e ziguezague.';
+            }
+            updateSimParams();
+        }
+
+        // Desenhar Pista Oval
+        function drawTrack() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Fundo
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Desenhar Linha Guia (Trilha Preta / Rota)
+            ctx.beginPath();
+            ctx.ellipse(300, 200, 200, 120, 0, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineWidth = 30;
+            ctx.stroke();
+
+            // Pista em si (Preta com borda cyan sutil)
+            ctx.beginPath();
+            ctx.ellipse(300, 200, 200, 120, 0, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 12;
+            ctx.stroke();
+        }
+
+        // Verificação se Ponto está sobre a linha da pista
+        function isOnLine(x, y) {
+            // Equação da elipse: ((x-300)/200)^2 + ((y-200)/120)^2 ~= 1
+            const dx = (x - 300) / 200;
+            const dy = (y - 200) / 120;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            // Considera dentro da linha se a distância da borda for pequena
+            return Math.abs(dist - 1.0) < 0.08;
+        }
+
+        // Desenhar e Atualizar Robô
+        function updateRobot() {
+            // Posição dos 2 sensores em relação ao robô
+            const leftSensorX = robot.x + Math.cos(robot.angle - 0.5) * (robot.sensorSpacing / 2);
+            const leftSensorY = robot.y + Math.sin(robot.angle - 0.5) * (robot.sensorSpacing / 2);
+
+            const rightSensorX = robot.x + Math.cos(robot.angle + 0.5) * (robot.sensorSpacing / 2);
+            const rightSensorY = robot.y + Math.sin(robot.angle + 0.5) * (robot.sensorSpacing / 2);
+
+            // Leitura de Linha
+            let leftOnLine = isOnLine(leftSensorX, leftSensorY);
+            let rightOnLine = isOnLine(rightSensorX, rightSensorY);
+
+            // Aplicação da Perda de Contraste (Simulação Catarata)
+            if (robot.contrastSense < 0.5 && Math.random() > robot.contrastSense) {
+                leftOnLine = false; // falha de leitura por opacidade
+            }
+
+            // Lógica de Direção (Seguidor de Linha Clássico)
+            let turnRate = 0.04;
+
+            if (robot.sensorMode === 'dmri') {
+                // Instabilidade central
+                turnRate = 0.09;
+            }
+
+            if (leftOnLine && !rightOnLine) {
+                robot.angle -= turnRate; // Virar Esquerda
+            } else if (!leftOnLine && rightOnLine) {
+                robot.angle += turnRate; // Virar Direita
+            } else {
+                // Ajuste contínuo tangencial à pista oval
+                const dx = robot.x - 300;
+                const dy = robot.y - 200;
+                const targetAngle = Math.atan2(dy, dx) + Math.PI / 2;
+                robot.angle += (targetAngle - robot.angle) * 0.02;
+            }
+
+            // Avançar Posição
+            robot.x += Math.cos(robot.angle) * robot.speed;
+            robot.y += Math.sin(robot.angle) * robot.speed;
+
+            // DESENHAR ROBÔ
+            ctx.save();
+            ctx.translate(robot.x, robot.y);
+            ctx.rotate(robot.angle);
+
+            // Corpo do Carrinho
+            ctx.fillStyle = '#06b6d4';
+            ctx.beginPath();
+            ctx.roundRect(-15, -12, 30, 24, 4);
+            ctx.fill();
+
+            // Rodas
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(-10, -15, 8, 3);
+            ctx.fillRect(-10, 12, 8, 3);
+
+            // Sensores (LEDs Frontais)
+            ctx.fillStyle = leftOnLine ? '#ef4444' : '#22c55e';
+            ctx.beginPath();
+            ctx.arc(12, -robot.sensorSpacing / 3, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = rightOnLine ? '#ef4444' : '#22c55e';
+            ctx.beginPath();
+            ctx.arc(12, robot.sensorSpacing / 3, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function simLoop() {
+            if (!simRunning) return;
+            drawTrack();
+            updateRobot();
+            animFrameId = requestAnimationFrame(simLoop);
+        }
+
+        function toggleSimulation() {
+            simRunning = !simRunning;
+            const btn = document.getElementById('btnStart');
+            if (simRunning) {
+                btn.innerHTML = `<i data-lucide="pause" class="w-4 h-4"></i> Pausar`;
+                simLoop();
+            } else {
+                btn.innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Iniciar`;
+                cancelAnimationFrame(animFrameId);
+            }
+            lucide.createIcons();
+        }
+
+        function resetSimulation() {
+            simRunning = false;
+            cancelAnimationFrame(animFrameId);
+            robot.x = 300;
+            robot.y = 80;
+            robot.angle = 0;
+            document.getElementById('btnStart').innerHTML = `<i data-lucide="play" class="w-4 h-4"></i> Iniciar`;
+            drawTrack();
+            updateRobot();
+            lucide.createIcons();
+        }
+
+        // Desenhar Estado Inicial
+        window.onload = () => {
+            resetSimulation();
+        };
+    </script>
 </body>
 </html>
